@@ -1,0 +1,9 @@
+{
+  "monthly_budget": 2000.0,
+  "categories": {
+    "Food": 500.0,
+    "Transport": 200.0,
+    "Entertainment": 300.0,
+    "Rent": 1000.0
+  }
+}
