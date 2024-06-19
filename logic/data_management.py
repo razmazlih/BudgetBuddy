@@ -13,40 +13,33 @@ expenses_file_location = os.path.join(
 )
 
 
-def get_data(file_path):
+def add_record(file_path, record):
     """
-    טוען נתונים מקובץ JSON נתון.
+    מוסיף רשומה חדשה לקובץ JSON נתון ומעדכן את הקובץ.
 
     פרמטרים:
         file_path (str): הנתיב לקובץ ה-JSON.
-
-    מחזיר:
-        list: רשימת נתונים מהקובץ.
-
-    זורק:
-        Exception: אם יש שגיאה בטעינת הקובץ.
-    """
-    with open(file_path, 'r') as file:
-        return json.load(file)
-
-
-def update_data(file_path, updated_data):
-    """
-    מעדכן את הנתונים בקובץ JSON נתון.
-
-    פרמטרים:
-        file_path (str): הנתיב לקובץ ה-JSON.
-        updated_data (list or dict): הנתונים המעודכנים לשמירה בקובץ.
+        record (dict): הרשומה להוספה לקובץ ה-JSON.
 
     תיאור:
-        הפונקציה כותבת את הנתונים המעודכנים לקובץ ה-JSON שצויין בנתיב `file_path`.
-        היא משתמשת בפונקציה `json.dump` לשמירת הנתונים בקובץ בפורמט JSON.
+        הפונקציה טוענת את כל הרשומות הקיימות מקובץ ה-JSON שצויין בנתיב `file_path`.
+        אם יש שגיאה בטעינת הקובץ, היא יוצרת רשימה ריקה. לאחר מכן, הפונקציה מוסיפה
+        את הרשומה החדשה לרשימה ושומרת את הרשימה המעודכנת בחזרה לקובץ ה-JSON.
         הפרמטר `indent=4` משמש להוספת רווחים לכל רמה במבנה ה-JSON כדי להפוך את הקובץ
         לקריא יותר עבור בני אדם.
 
     """
+    try:
+        with open(file_path, 'r') as file:
+            all_records = json.load(file)
+    except Exception as err:
+        print(f"file loading error for {file_path}:", err)
+        all_records = []
+
+    all_records.append(record)
+
     with open(file_path, "w") as file_to_update:
-        json.dump(updated_data, file_to_update, indent=4)
+        json.dump(all_records, file_to_update, indent=4)
 
 
 def add_expense(date, category, amount, description):
@@ -61,9 +54,8 @@ def add_expense(date, category, amount, description):
 
     תיאור:
         הפונקציה יוצרת מילון של ההוצאה החדשה עם התאריך, קטגוריה, סכום ותיאור.
-        היא טוענת את כל ההוצאות הקיימות מקובץ ה-JSON. אם יש שגיאה בטעינת הקובץ,
-        היא יוצרת רשימה ריקה. לאחר מכן, הפונקציה מוסיפה את ההוצאה החדשה לרשימה
-        ושומרת את הרשימה המעודכנת בחזרה לקובץ ה-JSON.
+        היא קוראת לפונקציה `add_record` עם הנתיב לקובץ ההוצאות והרשומה החדשה כדי
+        להוסיף את ההוצאה לקובץ ולעדכן אותו.
 
     """
     expense_to_add = {
@@ -72,13 +64,31 @@ def add_expense(date, category, amount, description):
         "amount": amount,
         "description": description
     }
-    try:
-        all_expenses = get_data(expenses_file_location)
-    except Exception as err:
-        print("file loading error:", err)
-        all_expenses = []
+    add_record(expenses_file_location, expense_to_add)
 
-    all_expenses.append(expense_to_add)
 
-    update_data(expenses_file_location, all_expenses)
+def add_income(date, source, amount, description):
+    """
+    מוסיף הכנסה חדשה לקובץ ההכנסות JSON.
+
+    פרמטרים:
+        date (str): התאריך של ההכנסה.
+        source (str): מקור ההכנסה.
+        amount (float): סכום ההכנסה.
+        description (str): תיאור ההכנסה.
+
+    תיאור:
+        הפונקציה יוצרת מילון של ההכנסה החדשה עם התאריך, מקור ההכנסה, סכום ותיאור.
+        היא קוראת לפונקציה `add_record` עם הנתיב לקובץ ההכנסות והרשומה החדשה כדי
+        להוסיף את ההכנסה לקובץ ולעדכן אותו.
+
+    """
+    income_to_add = {
+        "date": date,
+        "source": source,
+        "amount": amount,
+        "description": description
+    }
+    add_record(income_file_location, income_to_add)
+
 
