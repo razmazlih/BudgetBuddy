@@ -1,14 +1,14 @@
 [
-  {
-    "date": "2024-06-01",
-    "source": "Salary",
-    "amount": 3000.0,
-    "description": "Monthly salary"
-  },
-  {
-    "date": "2024-06-05",
-    "source": "Freelance",
-    "amount": 500.0,
-    "description": "Freelance project"
-  }
+    {
+        "date": "2024-06-01",
+        "source": "Salary",
+        "amount": 3000.0,
+        "description": "Monthly salary"
+    },
+    {
+        "date": "2024-06-05",
+        "source": "Freelance",
+        "amount": 500.0,
+        "description": "Freelance project"
+    }
 ]

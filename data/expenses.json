@@ -1,14 +1,14 @@
 [
-  {
-    "date": "2024-06-01",
-    "category": "Food",
-    "amount": 50.0,
-    "description": "Grocery shopping"
-  },
-  {
-    "date": "2024-06-02",
-    "category": "Transport",
-    "amount": 20.0,
-    "description": "Bus pass"
-  }
+    {
+        "date": "2024-06-01",
+        "category": "Food",
+        "amount": 50.0,
+        "description": "Grocery shopping"
+    },
+    {
+        "date": "2024-06-02",
+        "category": "Transport",
+        "amount": 20.0,
+        "description": "Bus pass"
+    }
 ]
