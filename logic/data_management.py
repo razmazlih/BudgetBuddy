@@ -30,6 +30,25 @@ def get_data(file_path):
         return json.load(file)
 
 
+def update_data(file_path, updated_data):
+    """
+    מעדכן את הנתונים בקובץ JSON נתון.
+
+    פרמטרים:
+        file_path (str): הנתיב לקובץ ה-JSON.
+        updated_data (list or dict): הנתונים המעודכנים לשמירה בקובץ.
+
+    תיאור:
+        הפונקציה כותבת את הנתונים המעודכנים לקובץ ה-JSON שצויין בנתיב `file_path`.
+        היא משתמשת בפונקציה `json.dump` לשמירת הנתונים בקובץ בפורמט JSON.
+        הפרמטר `indent=4` משמש להוספת רווחים לכל רמה במבנה ה-JSON כדי להפוך את הקובץ
+        לקריא יותר עבור בני אדם.
+
+    """
+    with open(file_path, "w") as file_to_update:
+        json.dump(updated_data, file_to_update, indent=4)
+
+
 def add_expense(date, category, amount, description):
     """
     מוסיף הוצאה חדשה לקובץ ההוצאות JSON.
@@ -61,5 +80,5 @@ def add_expense(date, category, amount, description):
 
     all_expenses.append(expense_to_add)
 
-    with open(expenses_file_location, "w") as expenses_file:
-        json.dump(all_expenses, expenses_file, indent=4)
+    update_data(expenses_file_location, all_expenses)
+
