@@ -12,6 +12,7 @@ expenses_file_location = os.path.join(
     os.path.dirname(__file__), "..", "data", "expenses.json"
 )
 
+def open_read_file()
 
 def add_record(file_path, record):
     """
@@ -92,3 +93,18 @@ def add_income(date, source, amount, description):
     add_record(income_file_location, income_to_add)
 
 
+def search_record(search_by, search_data, record):
+    file_path = income_file_location
+    if record == "expense":
+        file_path = expenses_file_location
+
+    with open(file_path, "r") as opened_file
+
+
+search_record("amount", 500.00, "income")
+"""
+Test add_income, add_expense.
+
+add_income("2024-07-05", "eat", 1000, "Test")
+add_expense("2024-07-05", "eat", 1000, "Test")
+"""
