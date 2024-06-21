@@ -130,7 +130,9 @@ def search_expense(wey_search, string_search: str) -> list:
             return []
         break
 
-    founds = [expense for expense in my_expenses if string_search in str(expense[wey_search])]
+    founds = [
+        expense for expense in my_expenses if string_search in str(expense[wey_search])
+    ]
 
     if founds:
         return founds
@@ -148,10 +150,48 @@ def search_income(wey_search, string_search: str) -> list:
             return []
         break
 
-    founds = [income for income in my_incomes if string_search in str(income[wey_search])]
+    founds = [
+        income for income in my_incomes if string_search in str(income[wey_search])
+    ]
 
     if founds:
         return founds
     else:
         print("expense not found!")
         return []
+
+
+def _create_budget(categories: list):
+    budget_dict = {"categories": {}}
+
+    total_budget = 0.0
+    for category, amount in categories:
+        budget_dict["categories"][category] = amount
+        total_budget += amount
+
+    budget_dict["monthly_budget"] = total_budget
+
+    return budget_dict
+
+
+def update_budget(new_category, new_amount):
+    budget = _open_read_file(BUDGET_FILE_LOCATION)
+
+    tuple_budget = budget["categories"]
+
+    try:
+        float_amount = float(new_amount)
+    except:
+        print("category value isn't a number")
+        return
+
+    if new_category in tuple_budget:
+        for category in tuple_budget.items():
+            if category[0] == new_category:
+                tuple_budget[category[0]] = float_amount
+                break
+    else:
+        budget["categories"][new_category] = float_amount
+
+    updated_budget = _create_budget(tuple_budget.items())
+    _open_write_file(BUDGET_FILE_LOCATION, updated_budget)
