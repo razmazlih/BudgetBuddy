@@ -12,7 +12,38 @@ expenses_file_location = os.path.join(
     os.path.dirname(__file__), "..", "data", "expenses.json"
 )
 
-def open_read_file()
+
+def open_read_file(file_path):
+    """
+    קורא נתוני JSON מקובץ ומחזיר אותם.
+
+    פרמטרים:
+    file_path (str): הנתיב לקובץ לקריאה ממנו.
+
+    מחזיר:
+    dict: הנתונים שנקראו מהקובץ.
+    """
+    try:
+        with open(file_path, "r") as file:
+            return json.load(file)
+    except Exception as e:
+        raise Exception("Error reading the file") from e
+
+
+def open_write_file(file_path, data):
+    """
+    כותב נתוני JSON לקובץ.
+
+    פרמטרים:
+    file_path (str): הנתיב לקובץ לכתיבה אליו.
+    data (dict): הנתונים לכתיבה לקובץ.
+    """
+    try:
+        with open(file_path, "w") as write_file:
+            json.dump(data, write_file, indent=4)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 
 def add_record(file_path, record):
     """
@@ -31,16 +62,13 @@ def add_record(file_path, record):
 
     """
     try:
-        with open(file_path, 'r') as file:
-            all_records = json.load(file)
-    except Exception as err:
-        print(f"file loading error for {file_path}:", err)
+        all_records = open_read_file(file_path)
+    except:
         all_records = []
 
     all_records.append(record)
 
-    with open(file_path, "w") as file_to_update:
-        json.dump(all_records, file_to_update, indent=4)
+    open_write_file(file_path, all_records)
 
 
 def add_expense(date, category, amount, description):
@@ -63,7 +91,7 @@ def add_expense(date, category, amount, description):
         "date": date,
         "category": category,
         "amount": amount,
-        "description": description
+        "description": description,
     }
     add_record(expenses_file_location, expense_to_add)
 
@@ -88,23 +116,6 @@ def add_income(date, source, amount, description):
         "date": date,
         "source": source,
         "amount": amount,
-        "description": description
+        "description": description,
     }
     add_record(income_file_location, income_to_add)
-
-
-def search_record(search_by, search_data, record):
-    file_path = income_file_location
-    if record == "expense":
-        file_path = expenses_file_location
-
-    with open(file_path, "r") as opened_file
-
-
-search_record("amount", 500.00, "income")
-"""
-Test add_income, add_expense.
-
-add_income("2024-07-05", "eat", 1000, "Test")
-add_expense("2024-07-05", "eat", 1000, "Test")
-"""
