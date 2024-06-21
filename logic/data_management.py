@@ -13,7 +13,7 @@ EXPENSES_FILE_LOCATION = os.path.join(
 )
 
 
-def _open_read_file(file_path):
+def _open_read_file(file_path: str):
     """
     קורא נתוני JSON מקובץ ומחזיר אותם.
 
@@ -30,7 +30,7 @@ def _open_read_file(file_path):
         raise Exception("Error reading the file") from e
 
 
-def _open_write_file(file_path, data):
+def _open_write_file(file_path: str, data):
     """
     כותב נתוני JSON לקובץ.
 
@@ -45,7 +45,7 @@ def _open_write_file(file_path, data):
         print(f"An error occurred: {e}")
 
 
-def add_record(file_path, record):
+def add_record(file_path: str, record: dict):
     """
     מוסיף רשומה חדשה לקובץ JSON נתון ומעדכן את הקובץ.
 
@@ -71,7 +71,7 @@ def add_record(file_path, record):
     _open_write_file(file_path, all_records)
 
 
-def add_expense(date, category, amount, description):
+def add_expense(date: str, category: str, amount, description: str):
     """
     מוסיף הוצאה חדשה לקובץ ההוצאות JSON.
 
@@ -87,16 +87,22 @@ def add_expense(date, category, amount, description):
         להוסיף את ההוצאה לקובץ ולעדכן אותו.
 
     """
+    try:
+        float_amount = float(amount)
+    except:
+        print("amount isn't a number")
+        return
+
     expense_to_add = {
         "date": date,
         "category": category,
-        "amount": amount,
+        "amount": float_amount,
         "description": description,
     }
     add_record(EXPENSES_FILE_LOCATION, expense_to_add)
 
 
-def add_income(date, source, amount, description):
+def add_income(date: str, source: str, amount, description: str):
     """
     מוסיף הכנסה חדשה לקובץ ההכנסות JSON.
 
@@ -112,16 +118,38 @@ def add_income(date, source, amount, description):
         להוסיף את ההכנסה לקובץ ולעדכן אותו.
 
     """
+    try:
+        float_amount = float(amount)
+    except:
+        print("amount isn't a number")
+        return
+
     income_to_add = {
         "date": date,
         "source": source,
-        "amount": amount,
+        "amount": float_amount,
         "description": description,
     }
     add_record(INCOME_FILE_LOCATION, income_to_add)
 
 
-def search_expense(wey_search, string_search: str) -> list:
+def search_expense(wey_search: str, string_search: str) -> list:
+    """
+    מחפש הוצאות לפי מפתח וערך חיפוש.
+
+    פרמטרים:
+        wey_search (str): המפתח לחיפוש בהוצאות (כגון "category", "date").
+        string_search (str): הערך לחיפוש במפתח הנתון.
+
+    מחזיר:
+        list: רשימת הוצאות שמכילות את ערך החיפוש במפתח הנתון, או רשימה ריקה אם לא נמצאו הוצאות.
+
+    תיאור:
+        הפונקציה טוענת את כל ההוצאות מקובץ ההוצאות JSON שצויין בנתיב `EXPENSES_FILE_LOCATION`.
+        היא בודקת אם המפתח לחיפוש קיים בהוצאות, ולאחר מכן מחפשת את הערך הנתון במפתח הנתון בכל ההוצאות.
+        אם נמצאו הוצאות מתאימות, הפונקציה מחזירה רשימה של ההוצאות הללו. אם לא נמצאו הוצאות מתאימות או
+        אם המפתח לחיפוש לא קיים, הפונקציה מחזירה רשימה ריקה ומדפיסה הודעה מתאימה.
+    """
     my_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
 
     for expense in my_expenses:
@@ -141,7 +169,23 @@ def search_expense(wey_search, string_search: str) -> list:
         return []
 
 
-def search_income(wey_search, string_search: str) -> list:
+def search_income(wey_search: str, string_search: str) -> list:
+    """
+    מחפש הכנסות לפי מפתח וערך חיפוש.
+
+    פרמטרים:
+        wey_search (str): המפתח לחיפוש בהכנסות (כגון "source", "date").
+        string_search (str): הערך לחיפוש במפתח הנתון.
+
+    מחזיר:
+        list: רשימת הכנסות שמכילות את ערך החיפוש במפתח הנתון, או רשימה ריקה אם לא נמצאו הכנסות.
+
+    תיאור:
+        הפונקציה טוענת את כל ההכנסות מקובץ ההכנסות JSON שצויין בנתיב `INCOME_FILE_LOCATION`.
+        היא בודקת אם המפתח לחיפוש קיים בהכנסות, ולאחר מכן מחפשת את הערך הנתון במפתח הנתון בכל ההכנסות.
+        אם נמצאו הכנסות מתאימות, הפונקציה מחזירה רשימה של ההכנסות הללו. אם לא נמצאו הכנסות מתאימות או
+        אם המפתח לחיפוש לא קיים, הפונקציה מחזירה רשימה ריקה ומדפיסה הודעה מתאימה.
+    """
     my_incomes = _open_read_file(EXPENSES_FILE_LOCATION)
 
     for income in my_incomes:
@@ -162,6 +206,19 @@ def search_income(wey_search, string_search: str) -> list:
 
 
 def _create_budget(categories: list):
+    """
+    יוצר מילון תקציב מקטגוריות וסכומים נתונים.
+
+    פרמטרים:
+        categories (list): רשימת טאפלות שכל אחת מכילה שם קטגוריה וסכום (כגון [("Food", 500.0), ("Transport", 200.0)]).
+
+    מחזיר:
+        dict: מילון עם קטגוריות וסכומים, ותקציב חודשי כולל.
+
+    תיאור:
+        הפונקציה יוצרת מילון עם הקטגוריות והסכומים הנתונים. היא מחשבת את הסכום הכולל של כל הקטגוריות
+        ומוסיפה אותו למילון תחת המפתח "monthly_budget".
+    """
     budget_dict = {"categories": {}}
 
     total_budget = 0.0
@@ -174,7 +231,20 @@ def _create_budget(categories: list):
     return budget_dict
 
 
-def update_budget(new_category, new_amount):
+def update_budget(new_category: str, new_amount):
+    """
+    מעדכן את התקציב הקיים עם קטגוריה חדשה או מעודכנת.
+
+    פרמטרים:
+        new_category (str): שם הקטגוריה לעדכון או להוספה.
+        new_amount (float or str): הסכום החדש עבור הקטגוריה. אם זהו מחרוזת, היא תומר למספר.
+
+    תיאור:
+        הפונקציה קוראת את התקציב הקיים מקובץ ה-JSON המוגדר במיקום `BUDGET_FILE_LOCATION`.
+        היא בודקת אם הסכום החדש הוא מספר תקין. אם הקטגוריה החדשה כבר קיימת בתקציב, היא מעדכנת את הסכום שלה.
+        אם הקטגוריה החדשה לא קיימת, היא מוסיפה את הקטגוריה עם הסכום החדש.
+        לבסוף, הפונקציה מעדכנת את התקציב הכולל ושומרת את התקציב המעודכן בחזרה לקובץ ה-JSON.
+    """
     budget = _open_read_file(BUDGET_FILE_LOCATION)
 
     tuple_budget = budget["categories"]
