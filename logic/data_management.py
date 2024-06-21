@@ -2,18 +2,18 @@ import json
 import os
 
 
-budget_file_location = os.path.join(
+BUDGET_FILE_LOCATION = os.path.join(
     os.path.dirname(__file__), "..", "data", "budget.json"
 )
-income_file_location = os.path.join(
+INCOME_FILE_LOCATION = os.path.join(
     os.path.dirname(__file__), "..", "data", "income.json"
 )
-expenses_file_location = os.path.join(
+EXPENSES_FILE_LOCATION = os.path.join(
     os.path.dirname(__file__), "..", "data", "expenses.json"
 )
 
 
-def open_read_file(file_path):
+def _open_read_file(file_path):
     """
     קורא נתוני JSON מקובץ ומחזיר אותם.
 
@@ -30,7 +30,7 @@ def open_read_file(file_path):
         raise Exception("Error reading the file") from e
 
 
-def open_write_file(file_path, data):
+def _open_write_file(file_path, data):
     """
     כותב נתוני JSON לקובץ.
 
@@ -62,13 +62,13 @@ def add_record(file_path, record):
 
     """
     try:
-        all_records = open_read_file(file_path)
+        all_records = _open_read_file(file_path)
     except:
         all_records = []
 
     all_records.append(record)
 
-    open_write_file(file_path, all_records)
+    _open_write_file(file_path, all_records)
 
 
 def add_expense(date, category, amount, description):
@@ -93,7 +93,7 @@ def add_expense(date, category, amount, description):
         "amount": amount,
         "description": description,
     }
-    add_record(expenses_file_location, expense_to_add)
+    add_record(EXPENSES_FILE_LOCATION, expense_to_add)
 
 
 def add_income(date, source, amount, description):
@@ -118,4 +118,40 @@ def add_income(date, source, amount, description):
         "amount": amount,
         "description": description,
     }
-    add_record(income_file_location, income_to_add)
+    add_record(INCOME_FILE_LOCATION, income_to_add)
+
+
+def search_expense(wey_search, string_search: str) -> list:
+    my_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
+
+    for expense in my_expenses:
+        if wey_search not in expense:
+            print("expense not found!")
+            return []
+        break
+
+    founds = [expense for expense in my_expenses if string_search in str(expense[wey_search])]
+
+    if founds:
+        return founds
+    else:
+        print("expense not found!")
+        return []
+
+
+def search_income(wey_search, string_search: str) -> list:
+    my_incomes = _open_read_file(EXPENSES_FILE_LOCATION)
+
+    for income in my_incomes:
+        if wey_search not in income:
+            print("expense not found!")
+            return []
+        break
+
+    founds = [income for income in my_incomes if string_search in str(income[wey_search])]
+
+    if founds:
+        return founds
+    else:
+        print("expense not found!")
+        return []
