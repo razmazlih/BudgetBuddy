@@ -266,6 +266,7 @@ def update_budget(new_category: str, new_amount):
     updated_budget = _create_budget(tuple_budget.items())
     _open_write_file(BUDGET_FILE_LOCATION, updated_budget)
 
+
 def delete_expense(desc: str):
     """
     מוחק הוצאה מרשימת ההוצאות לפי תיאור ההוצאה.
@@ -281,6 +282,7 @@ def delete_expense(desc: str):
             break
 
     _open_write_file(EXPENSES_FILE_LOCATION, all_expenses)
+
 
 def delete_income(desc: str):
     """
