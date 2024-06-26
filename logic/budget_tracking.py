@@ -5,7 +5,7 @@ from data_management import (
 )
 
 
-def check_budget(new_expense: str) -> bool:
+def _check_valid_budget(new_expense: float) -> bool:
     """
     בודק האם הוצאה חדשה תקפה לפי התקציב החודשי הקיים.
 

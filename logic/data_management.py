@@ -1,5 +1,6 @@
 import json
 import os
+from budget_tracking import _check_valid_budget
 
 
 BUDGET_FILE_LOCATION = os.path.join(
@@ -91,6 +92,10 @@ def add_expense(date: str, category: str, amount, description: str):
         float_amount = float(amount)
     except:
         print("amount isn't a number")
+        return
+
+    if not _check_valid_budget(float_amount):
+        print("Amount is bigger then budget!")
         return
 
     expense_to_add = {
