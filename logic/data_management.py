@@ -265,3 +265,35 @@ def update_budget(new_category: str, new_amount):
 
     updated_budget = _create_budget(tuple_budget.items())
     _open_write_file(BUDGET_FILE_LOCATION, updated_budget)
+
+def delete_expense(desc: str):
+    """
+    מוחק הוצאה מרשימת ההוצאות לפי תיאור ההוצאה.
+
+    פרמטרים:
+    desc (str): תיאור ההוצאה למחיקה.
+    """
+    all_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
+
+    for idx, expense in enumerate(all_expenses):
+        if desc.lower() == expense["description"].lower():
+            all_expenses.pop(idx)
+            break
+
+    _open_write_file(EXPENSES_FILE_LOCATION, all_expenses)
+
+def delete_income(desc: str):
+    """
+    מוחק הכנסה מרשימת ההכנסות לפי תיאור ההכנסה.
+
+    פרמטרים:
+    desc (str): תיאור ההכנסה למחיקה.
+    """
+    all_incomes = _open_read_file(INCOME_FILE_LOCATION)
+
+    for idx, income in enumerate(all_incomes):
+        if desc.lower() == income["description"].lower():
+            all_incomes.pop(idx)
+            break
+
+    _open_write_file(INCOME_FILE_LOCATION, all_incomes)
