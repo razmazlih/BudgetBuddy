@@ -1,9 +1,9 @@
 [
     {
         "date": "2024-06-01",
-        "source": "Salary",
+        "source": "Work",
         "amount": 3000.0,
-        "description": "Monthly salary"
+        "description": "Salary"
     },
     {
         "date": "2024-06-05",

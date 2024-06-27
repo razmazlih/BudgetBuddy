@@ -8,3 +8,4 @@ from logic.data_management import (
     delete_expense,
     delete_income,
 )
+from ui.main_ui import app
