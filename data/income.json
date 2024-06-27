@@ -10,5 +10,11 @@
         "source": "Freelance",
         "amount": 500.0,
         "description": "Freelance project"
+    },
+    {
+        "date": "2024-06-10",
+        "source": null,
+        "amount": 3000.0,
+        "description": "Salary"
     }
 ]

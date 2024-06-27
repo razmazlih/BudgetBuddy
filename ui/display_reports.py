@@ -22,6 +22,7 @@ def show_income_graph(start_date: str = "0000-00-00", end_date: str = "9999-00-0
     plt.xlabel("Date")
     plt.ylabel("Income")
     plt.title("Total Income per Date")
+    plt.xticks(rotation=45)
     plt.tight_layout()
 
     img = BytesIO()
@@ -49,6 +50,7 @@ def show_expense_graph():
     plt.xlabel("Date")
     plt.ylabel("Expense")
     plt.title("Total Expense per Date")
+    plt.xticks(rotation=45)
     plt.tight_layout()
 
     img = BytesIO()

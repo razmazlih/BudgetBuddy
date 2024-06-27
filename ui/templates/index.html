@@ -1,0 +1,13 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome to Your Personal Budget Manager</h2>
+<p>Use the navigation above to manage your expenses, income, and budget.</p>
+<div>
+    <p>your budget: {{ my_budget }}$</p>
+    <p>total incomes: {{ total_incomes }}$, <a href="/income-graph" target="_blank">See incomes in graph</a></p>
+    <p>total expenses: {{ total_expenses }}$, <a href="/expense-graph" target="_blank">See Expenses in graph</a> </p>
+    <p>Your money: {{ total_incomes - total_expenses }}$</p>
+</div>
+{% endblock %}

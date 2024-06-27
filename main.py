@@ -9,3 +9,5 @@ from logic.data_management import (
     delete_income,
 )
 from ui.main_ui import app
+
+app.run(debug=True, port=1231)

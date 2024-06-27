@@ -284,3 +284,69 @@ def update_budget(new_category: str, new_amount):
 
     updated_budget = _create_budget(tuple_budget.items())
     _open_write_file(BUDGET_FILE_LOCATION, updated_budget)
+
+
+def get_total_expense() -> float:
+    """
+    פונקציה זו מחשבת את סך כל ההוצאות.
+
+    היא קוראת את קובץ ההוצאות מהמיקום המוגדר במשתנה EXPENSES_FILE_LOCATION,
+    מחשבת את סכום כל ההוצאות ומחזירה את התוצאה כסוג נתון float.
+
+    החזרת ערך:
+    float: סכום כל ההוצאות.
+    """
+    all_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
+
+    total_expenses = 0.0
+
+    if all_expenses:
+        for expense in all_expenses:
+            total_expenses += expense["amount"]
+        return total_expenses
+    else:
+        return total_expenses
+
+
+def get_total_income() -> float:
+    """
+    פונקציה זו מחשבת את סך כל ההכנסות.
+
+    היא קוראת את קובץ ההכנסות מהמיקום המוגדר במשתנה INCOME_FILE_LOCATION,
+    מחשבת את סכום כל ההכנסות ומחזירה את התוצאה כסוג נתון float.
+
+    החזרת ערך:
+    float: סכום כל ההכנסות.
+    """
+    all_incomes = _open_read_file(INCOME_FILE_LOCATION)
+
+    total_incomes = 0.0
+
+    if all_incomes:
+        for income in all_incomes:
+            total_incomes += income["amount"]
+        return total_incomes
+    else:
+        return total_incomes
+
+
+def get_budget() -> float:
+    """
+    פונקציה זו מחזירה את התקציב החודשי.
+
+    היא קוראת את קובץ התקציב מהמיקום המוגדר במשתנה BUDGET_FILE_LOCATION,
+    ומחזירה את הערך של התקציב החודשי כסוג נתון float.
+
+    החזרת ערך:
+    float: התקציב החודשי.
+    """
+    budget = _open_read_file(BUDGET_FILE_LOCATION)
+
+    return budget["monthly_budget"]
+
+
+def get_expenses():
+    return _open_read_file(EXPENSES_FILE_LOCATION)
+
+def get_incomes():
+    return _open_read_file(INCOME_FILE_LOCATION)
