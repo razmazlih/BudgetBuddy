@@ -13,7 +13,8 @@ from logic.data_management import (
     get_total_income,
     get_budget,
     get_expenses,
-    get_incomes
+    get_incomes,
+    get_budget_categories
 )
 
 
@@ -52,9 +53,8 @@ def add_new_expense():
     input_description = request.form.get("description")
 
     add_expense(input_date, input_category, input_amount, input_description)
-    return "Expense added successfully! <a href='/'>Link Back</a>"
+    return render_template("index.html", total_expenses= get_total_expense(), total_incomes=get_total_income(), my_budget=get_budget())
 
-# דף ניהול הכנסות
 @app.route("/income")
 def income():
     my_incomes = get_incomes()
@@ -80,13 +80,12 @@ def add_new_income():
     input_description = request.form.get("description")
 
     add_income(input_date, input_source, input_amount, input_description)
-    return "Income added successfully! <a href='/'>Link Back</a>"
+    return render_template("index.html", total_expenses= get_total_expense(), total_incomes=get_total_income(), my_budget=get_budget())
 
 
-# דף תקציב
 @app.route("/budget")
 def budget():
-    return render_template("budget.html")
+    return render_template("budget.html", categories=get_budget_categories(), total=get_budget())
 
 
 @app.route("/expense-graph")

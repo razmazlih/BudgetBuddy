@@ -345,8 +345,13 @@ def get_budget() -> float:
     return budget["monthly_budget"]
 
 
-def get_expenses():
+def get_budget_categories() -> dict:
+    return _open_read_file(BUDGET_FILE_LOCATION)["categories"]
+
+
+def get_expenses() -> list:
     return _open_read_file(EXPENSES_FILE_LOCATION)
 
-def get_incomes():
+
+def get_incomes() -> list:
     return _open_read_file(INCOME_FILE_LOCATION)

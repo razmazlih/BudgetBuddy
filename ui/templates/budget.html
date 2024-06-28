@@ -1,7 +1,12 @@
-<!-- templates/budget.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <h2>Budget Overview</h2>
-<!-- תקציב ותצוגת נתונים -->
+<h3>Monthly Budget</h3>
+<p>total: {{ total }}$</p>
+<ul>
+{% for category, amount in categories.items() %}
+    <li>{{ category }}: {{ amount }}$</li>
+{% endfor %}
+</ul>
 {% endblock %}
