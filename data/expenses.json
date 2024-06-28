@@ -1,14 +1,26 @@
 [
-    {
-        "date": "2024-06-01",
-        "category": "Food",
-        "amount": 50.0,
-        "description": "Grocery shopping"
-    },
-    {
-        "date": "2024-06-06",
-        "category": "Transport",
-        "amount": 20.0,
-        "description": "Bus pass"
-    }
+    {"date": "2024-01-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-01-05", "category": "Food", "amount": 200.0, "description": "Grocery shopping"},
+    {"date": "2024-02-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-02-10", "category": "Entertainment", "amount": 100.0, "description": "Movies"},
+    {"date": "2024-03-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-03-15", "category": "Utilities", "amount": 150.0, "description": "Electricity bill"},
+    {"date": "2024-04-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-04-20", "category": "Travel", "amount": 300.0, "description": "Weekend trip"},
+    {"date": "2024-05-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-05-25", "category": "Health", "amount": 50.0, "description": "Medicine"},
+    {"date": "2024-06-01", "category": "Food", "amount": 50.0, "description": "Grocery shopping"},
+    {"date": "2024-06-06", "category": "Transport", "amount": 20.0, "description": "Bus pass"},
+    {"date": "2024-07-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-07-10", "category": "Entertainment", "amount": 100.0, "description": "Concert"},
+    {"date": "2024-08-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-08-15", "category": "Food", "amount": 300.0, "description": "Restaurant"},
+    {"date": "2024-09-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-09-20", "category": "Transport", "amount": 50.0, "description": "Taxi"},
+    {"date": "2024-10-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-10-25", "category": "Health", "amount": 200.0, "description": "Doctor visit"},
+    {"date": "2024-11-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-11-10", "category": "Entertainment", "amount": 150.0, "description": "Theater"},
+    {"date": "2024-12-01", "category": "Rent", "amount": 1200.0, "description": "Monthly rent"},
+    {"date": "2024-12-20", "category": "Gifts", "amount": 100.0, "description": "Christmas gifts"}
 ]

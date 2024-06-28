@@ -1,14 +1,26 @@
 [
-    {
-        "date": "2024-06-01",
-        "source": "Work",
-        "amount": 3000.0,
-        "description": "Salary"
-    },
-    {
-        "date": "2024-06-05",
-        "source": "Freelance",
-        "amount": 500.0,
-        "description": "Freelance project"
-    }
+    {"date": "2024-01-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-01-10", "source": "Freelance", "amount": 500.0, "description": "Project A"},
+    {"date": "2024-02-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-02-15", "source": "Freelance", "amount": 700.0, "description": "Project B"},
+    {"date": "2024-03-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-03-20", "source": "Investments", "amount": 300.0, "description": "Dividends"},
+    {"date": "2024-04-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-04-25", "source": "Freelance", "amount": 800.0, "description": "Project C"},
+    {"date": "2024-05-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-05-15", "source": "Investments", "amount": 500.0, "description": "Stock earnings"},
+    {"date": "2024-06-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-06-05", "source": "Freelance", "amount": 500.0, "description": "Freelance project"},
+    {"date": "2024-07-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-07-20", "source": "Freelance", "amount": 600.0, "description": "Project D"},
+    {"date": "2024-08-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-08-10", "source": "Investments", "amount": 400.0, "description": "Dividends"},
+    {"date": "2024-09-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-09-15", "source": "Freelance", "amount": 700.0, "description": "Project E"},
+    {"date": "2024-10-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-10-20", "source": "Investments", "amount": 600.0, "description": "Stock earnings"},
+    {"date": "2024-11-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-11-25", "source": "Freelance", "amount": 800.0, "description": "Project F"},
+    {"date": "2024-12-01", "source": "Work", "amount": 3000.0, "description": "Salary"},
+    {"date": "2024-12-15", "source": "Investments", "amount": 500.0, "description": "Dividends"}
 ]
