@@ -1,5 +1,5 @@
 from .display_reports import show_expense_graph, show_income_graph
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from logic.data_management import (
     add_record,
     add_expense,
@@ -14,7 +14,8 @@ from logic.data_management import (
     get_budget,
     get_expenses,
     get_incomes,
-    get_budget_categories
+    get_budget_categories,
+    get_full_budget
 )
 
 
@@ -22,16 +23,14 @@ app = Flask(__name__)
 
 
 # דף הבית
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html", total_expenses= get_total_expense(), total_incomes=get_total_income(), my_budget=get_budget())
-
+    return render_template('index.html', total_expenses=get_total_expense(), total_incomes=get_total_income(), my_budget=get_budget())
 
 # דף ניהול הוצאות
-@app.route("/expenses")
+@app.route('/expenses', methods=['GET', 'POST'])
 def expenses():
-    my_expenses = get_expenses()
-    return render_template("expenses.html", expenses=my_expenses)
+    return render_template('expenses.html', my_expenses=get_expenses())
 
 
 @app.route("/add_expenses", methods=["POST"])
@@ -83,10 +82,17 @@ def add_new_income():
     return render_template("index.html", total_expenses= get_total_expense(), total_incomes=get_total_income(), my_budget=get_budget())
 
 
-@app.route("/budget")
+@app.route('/budget', methods=['GET', 'POST'])
 def budget():
-    return render_template("budget.html", categories=get_budget_categories(), total=get_budget())
-
+    if request.method == 'POST':
+        new_category = request.form['new_category']
+        new_amount = request.form['new_amount']
+        update_budget(new_category, new_amount)
+        return redirect(url_for('budget'))
+    now_budget = get_full_budget()
+    categories = now_budget.get('categories', {})
+    total = now_budget.get('monthly_budget', 0)
+    return render_template('budget.html', categories=categories, total=total)
 
 @app.route("/expense-graph")
 def expense_graph():

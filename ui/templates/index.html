@@ -1,13 +1,39 @@
-<!-- templates/index.html -->
 {% extends 'base.html' %}
 
 {% block content %}
 <h2>Welcome to Your Personal Budget Manager</h2>
 <p>Use the navigation above to manage your expenses, income, and budget.</p>
-<div>
-    <p>your budget: {{ my_budget }}$</p>
-    <p>total incomes: {{ total_incomes }}$, <a href="/income-graph?start_date=2024-06-01&end_date=2024-06-30" target="_blank">See incomes in graph</a></p>
-    <p>total expenses: {{ total_expenses }}$, <a href="/expense-graph?start_date=2024-06-01&end_date=2024-06-30" target="_blank">See Expenses in graph</a> </p>
-    <p>Your money: {{ total_incomes - total_expenses }}$</p>
+<div class="budget-overview">
+    <div class="budget-summary">
+        <p>Your budget: {{ my_budget }}$</p>
+        <p>Total incomes: {{ total_incomes }}$</p>
+        <p>Total expenses: {{ total_expenses }}$</p>
+        <p>Your money: {{ total_incomes - total_expenses }}$</p>
+    </div>
+    <div class="graph-section">
+        <p><strong>Create graph</strong></p>
+        <form id="dateForm">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required>
+        </form>
+        <p><a id="incomeGraphLink" href="#" target="_blank">Incomes</a>/ <a id="expenseGraphLink" href="#"
+                target="_blank">Expenses</a></p>
+    </div>
 </div>
+
+<script>
+    function updateLinks() {
+        var startDate = document.getElementById('start_date').value;
+        var endDate = document.getElementById('end_date').value;
+        var incomeGraphLink = document.getElementById('incomeGraphLink');
+        var expenseGraphLink = document.getElementById('expenseGraphLink');
+        incomeGraphLink.href = '/income-graph?start_date=' + startDate + '&end_date=' + endDate;
+        expenseGraphLink.href = '/expense-graph?start_date=' + startDate + '&end_date=' + endDate;
+    }
+
+    document.getElementById('start_date').addEventListener('change', updateLinks);
+    document.getElementById('end_date').addEventListener('change', updateLinks);
+</script>
 {% endblock %}

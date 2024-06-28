@@ -3,10 +3,21 @@
 {% block content %}
 <h2>Budget Overview</h2>
 <h3>Monthly Budget</h3>
-<p>total: {{ total }}$</p>
+<p>Total: {{ total }}$</p>
 <ul>
 {% for category, amount in categories.items() %}
     <li>{{ category }}: {{ amount }}$</li>
 {% endfor %}
 </ul>
+
+<h3>Add New Budget Category</h3>
+<form action="/budget" method="POST">
+    <label for="new_category">Category:</label>
+    <input type="text" id="new_category" name="new_category" required><br><br>
+
+    <label for="new_amount">Amount:</label>
+    <input type="number" id="new_amount" name="new_amount" required><br><br>
+
+    <input type="submit" value="Add Category">
+</form>
 {% endblock %}

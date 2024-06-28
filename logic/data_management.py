@@ -242,6 +242,8 @@ def _create_budget(categories: list) -> dict:
 
     total_budget = 0.0
     for category, amount in categories:
+        if amount == 0:
+            continue
         budget_dict["categories"][category] = amount
         total_budget += amount
 
@@ -284,6 +286,10 @@ def update_budget(new_category: str, new_amount):
 
     updated_budget = _create_budget(tuple_budget.items())
     _open_write_file(BUDGET_FILE_LOCATION, updated_budget)
+
+
+def get_full_budget():
+    return _open_read_file(BUDGET_FILE_LOCATION)
 
 
 def get_total_expense() -> float:
