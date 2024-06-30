@@ -15,7 +15,9 @@ from logic.data_management import (
     get_expenses,
     get_incomes,
     get_budget_categories,
-    get_full_budget
+    get_full_budget,
+    get_expense_categories,
+    get_income_categories
 )
 
 
@@ -30,22 +32,13 @@ def index():
 # דף ניהול הוצאות
 @app.route('/expenses', methods=['GET', 'POST'])
 def expenses():
-    return render_template('expenses.html', my_expenses=get_expenses())
+    sorted_expenses = enumerate(sorted(get_expenses(), key=lambda item: item["date"]))
+    return render_template('expenses.html', my_expenses=sorted_expenses, all_expense_categories=get_expense_categories())
 
 
 @app.route("/add_expenses", methods=["POST"])
 def add_new_expense():
-    year_date = request.form.get("yearDate")
-    month_date = request.form.get("monthDate")
-    day_date = request.form.get("dayDate")
-
-    if len(month_date) != 2:
-        month_date = "0" + month_date
-
-    if len(day_date) != 2:
-        day_date = "0" + day_date
-
-    input_date = f"{year_date}-{month_date}-{day_date}"
+    input_date = request.form.get("fullDate")
 
     input_category = request.form.get("category")
     input_amount = request.form.get("amount")

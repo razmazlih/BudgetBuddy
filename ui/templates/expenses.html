@@ -1,4 +1,3 @@
-<!-- templates/expenses.html -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -6,17 +5,16 @@
 <details>
     <summary>Add Expense</summary>
     <form action="/add_expenses" method="POST">
-        <label for="yearDate">Year:</label>
-        <input type="text" id="yearDate" name="yearDate" maxlength="4" pattern="\d{4}" required><br><br>
-
-        <label for="monthDate">Month:</label>
-        <input type="text" id="monthDate" name="monthDate" maxlength="2" pattern="\d{1,2}" required><br><br>
-
-        <label for="dayDate">Day:</label>
-        <input type="text" id="dayDate" name="dayDate" maxlength="2" pattern="\d{1,2}" required><br><br>
+        <label for="fullDate">Date:</label>
+        <input type="date" id="fullDate" name="fullDate" required><br><br>
 
         <label for="category">Category:</label>
-        <input type="text" id="category" name="category" required><br><br>
+        <select id="category" name="category" required>
+            <option value="" disabled selected>Select a category</option>
+            {% for category in all_expense_categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
 
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount" required><br><br>
@@ -38,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for one_expense in my_expenses %}
+            {% for idx, one_expense in my_expenses %}
             <tr>
                 <td>{{ one_expense["date"] }}</td>
                 <td>{{ one_expense["category"] }}</td>

@@ -350,14 +350,54 @@ def get_budget() -> float:
 
     return budget["monthly_budget"]
 
-
 def get_budget_categories() -> dict:
+    """
+    פונקציה להחזרת קטגוריות התקציב.
+
+    Returns:
+        dict: קטגוריות התקציב מתוך קובץ התקציב.
+    """
     return _open_read_file(BUDGET_FILE_LOCATION)["categories"]
 
-
 def get_expenses() -> list:
+    """
+    פונקציה להחזרת כל ההוצאות.
+
+    Returns:
+        list: רשימת ההוצאות מתוך קובץ ההוצאות.
+    """
     return _open_read_file(EXPENSES_FILE_LOCATION)
 
-
 def get_incomes() -> list:
+    """
+    פונקציה להחזרת כל ההכנסות.
+
+    Returns:
+        list: רשימת ההכנסות מתוך קובץ ההכנסות.
+    """
     return _open_read_file(INCOME_FILE_LOCATION)
+
+def get_expense_categories() -> set:
+    """
+    פונקציה להחזרת קטגוריות ההוצאות.
+
+    Returns:
+        set: סט של קטגוריות ההוצאות מתוך קובץ ההוצאות.
+    """
+    # all_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
+    # categories_set = {expense["category"] for expense in all_expenses}
+    # return categories_set
+
+    my_budget = _open_read_file(BUDGET_FILE_LOCATION)
+    return my_budget["categories"]
+
+def get_income_categories() -> set:
+    """
+    פונקציה להחזרת קטגוריות ההכנסות.
+
+    Returns:
+        set: סט של קטגוריות ההכנסות מתוך קובץ ההכנסות.
+    """
+    all_incomes = _open_read_file(INCOME_FILE_LOCATION)
+    categories_set = {income["category"] for income in all_incomes}
+    return categories_set
