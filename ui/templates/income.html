@@ -7,7 +7,7 @@
     <summary>Add Income</summary>
     <form action="/add_income" method="POST">
         <label for="fullDate">Date:</label>
-        <input type="date" id="fullDate" name="fullDate" required><br><br><br><br>
+        <input type="date" id="fullDate" name="fullDate" required><br><br>
 
         <label for="source">Source:</label>
         <input type="text" id="source" name="source" required><br><br>
@@ -29,15 +29,21 @@
                 <th>source</th>
                 <th>Amount</th>
                 <th>Description</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            {% for one_income in incomes %}
+            {% for idx, one_income in incomes %}
             <tr>
                 <td>{{ one_income["date"] }}</td>
                 <td>{{ one_income["source"] }}</td>
                 <td>{{ one_income["amount"] }}$</td>
                 <td>{{ one_income["description"] }}</td>
+                <td>
+                    <form action="{{ url_for('delete_income', idx=idx) }}" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

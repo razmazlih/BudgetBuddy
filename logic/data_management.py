@@ -172,36 +172,40 @@ def search_income(wey_search: str, string_search: str) -> list:
         return []
 
 
-def delete_expense(desc: str):
+def delete_expense_by_index(idx: int):
     """
-    מוחק הוצאה מרשימת ההוצאות לפי תיאור ההוצאה.
+    הפונקציה delete_expense משמשת למחיקת הוצאה מתוך רשימת ההוצאות בקובץ נתון.
 
     פרמטרים:
-    desc (str): תיאור ההוצאה למחיקה.
+    - idx (int): אינדקס ההוצאה שברצונך למחוק מתוך הרשימה.
+
+    שלבים:
+    1. קריאה של כל ההוצאות מקובץ הנתונים באמצעות _open_read_file ואחסונן במשתנה all_expenses.
+    2. מחיקת ההוצאה במיקום הנתון לפי האינדקס idx באמצעות pop.
+    3. כתיבת הרשימה המעודכנת חזרה לקובץ באמצעות _open_write_file.
     """
     all_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
 
-    for idx, expense in enumerate(all_expenses):
-        if desc.lower() == expense["description"].lower():
-            all_expenses.pop(idx)
-            break
+    all_expenses.pop(idx)
 
     _open_write_file(EXPENSES_FILE_LOCATION, all_expenses)
 
 
-def delete_income(desc: str):
+def delete_income_by_index(idx: int):
     """
-    מוחק הכנסה מרשימת ההכנסות לפי תיאור ההכנסה.
+    הפונקציה delete_income משמשת למחיקת הכנסה מתוך רשימת ההכנסות בקובץ נתון.
 
     פרמטרים:
-    desc (str): תיאור ההכנסה למחיקה.
+    - idx (int): אינדקס ההכנסה שברצונך למחוק מתוך הרשימה.
+
+    שלבים:
+    1. קריאה של כל ההכנסות מקובץ הנתונים באמצעות _open_read_file ואחסונן במשתנה all_incomes.
+    2. מחיקת ההכנסה במיקום הנתון לפי האינדקס idx באמצעות pop.
+    3. כתיבת הרשימה המעודכנת חזרה לקובץ באמצעות _open_write_file.
     """
     all_incomes = _open_read_file(INCOME_FILE_LOCATION)
 
-    for idx, income in enumerate(all_incomes):
-        if desc.lower() == income["description"].lower():
-            all_incomes.pop(idx)
-            break
+    all_incomes.pop(idx)
 
     _open_write_file(INCOME_FILE_LOCATION, all_incomes)
 

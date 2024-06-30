@@ -7,8 +7,8 @@ from logic.data_management import (
     search_expense,
     search_income,
     update_budget,
-    delete_expense,
-    delete_income,
+    delete_expense_by_index,
+    delete_income_by_index,
     get_total_expense,
     get_total_income,
     get_budget,
@@ -67,10 +67,16 @@ def add_new_expense():
     return render_template("expense_confirmation.html")
 
 
+@app.route("/delete_expense/<int:idx>", methods=["POST"])
+def delete_expense(idx):
+    delete_expense_by_index(idx)
+    return redirect(url_for("expenses"))
+
+
 @app.route("/income")
 def income():
-    my_incomes = get_incomes()
-    return render_template("income.html", incomes=my_incomes)
+    sorted_incomes = enumerate(sorted(get_incomes(), key=lambda item: item["date"]))
+    return render_template("income.html", incomes=sorted_incomes)
 
 
 @app.route("/add_income", methods=["POST"])
@@ -83,6 +89,12 @@ def add_new_income():
     add_income(input_date, input_source, input_amount, input_description)
 
     return render_template("income_confirmation.html")
+
+
+@app.route("/delete_income/<int:idx>", methods=["POST"])
+def delete_income(idx):
+    delete_income_by_index(idx)
+    return redirect(url_for("income"))
 
 
 @app.route("/budget", methods=["GET", "POST"])
