@@ -145,3 +145,9 @@ form input[type="submit"]:hover {
 .button:hover {
     background-color: #34495e;
 }
+
+@media (max-width: 1000px) {
+    th, td {
+        font-size: 11px;
+    }
+}
