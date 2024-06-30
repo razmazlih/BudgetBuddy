@@ -6,17 +6,11 @@
 <details>
     <summary>Add Income</summary>
     <form action="/add_income" method="POST">
-        <label for="yearDate">Year:</label>
-        <input type="text" id="yearDate" name="yearDate" maxlength="4" pattern="\d{4}" required><br><br>
+        <label for="fullDate">Date:</label>
+        <input type="date" id="fullDate" name="fullDate" required><br><br><br><br>
 
-        <label for="monthDate">Month:</label>
-        <input type="text" id="monthDate" name="monthDate" maxlength="2" pattern="\d{1,2}" required><br><br>
-
-        <label for="dayDate">Day:</label>
-        <input type="text" id="dayDate" name="dayDate" maxlength="2" pattern="\d{1,2}" required><br><br>
-
-        <label for="category">Category:</label>
-        <input type="text" id="category" name="category" required><br><br>
+        <label for="source">Source:</label>
+        <input type="text" id="source" name="source" required><br><br>
 
         <label for="amount">Amount:</label>
         <input type="number" id="amount" name="amount" required><br><br>

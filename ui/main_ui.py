@@ -58,25 +58,13 @@ def expenses():
 @app.route("/add_expenses", methods=["POST"])
 def add_new_expense():
     input_date = request.form.get("fullDate")
-
     input_category = request.form.get("category")
     input_amount = request.form.get("amount")
     input_description = request.form.get("description")
 
     add_expense(input_date, input_category, input_amount, input_description)
-    total_expenses = get_total_expense()
-    total_incomes = get_total_income()
-    total_budget = get_budget()
-    expenses_now_month = get_total_expenses_now_month()
-    incomes_now_month = get_total_income_now_month()
-    return render_template(
-        "index.html",
-        total_expenses=total_expenses,
-        total_incomes=total_incomes,
-        my_budget=total_budget,
-        expense_now_month=expenses_now_month,
-        incomes_now_month=incomes_now_month
-    )
+
+    return render_template("expense_confirmation.html")
 
 
 @app.route("/income")
@@ -87,29 +75,14 @@ def income():
 
 @app.route("/add_income", methods=["POST"])
 def add_new_income():
-    year_date = request.form.get("yearDate")
-    month_date = request.form.get("monthDate")
-    day_date = request.form.get("dayDate")
-
-    if len(month_date) != 2:
-        month_date = "0" + month_date
-
-    if len(day_date) != 2:
-        day_date = "0" + day_date
-
-    input_date = f"{year_date}-{month_date}-{day_date}"
-
+    input_date = request.form.get("fullDate")
     input_source = request.form.get("source")
     input_amount = request.form.get("amount")
     input_description = request.form.get("description")
 
     add_income(input_date, input_source, input_amount, input_description)
-    return render_template(
-        "index.html",
-        total_expenses=get_total_expense(),
-        total_incomes=get_total_income(),
-        my_budget=get_budget(),
-    )
+
+    return render_template("income_confirmation.html")
 
 
 @app.route("/budget", methods=["GET", "POST"])

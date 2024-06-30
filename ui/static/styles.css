@@ -131,3 +131,17 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     background-color: #34495e;
 }
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #2c3e50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #34495e;
+}
