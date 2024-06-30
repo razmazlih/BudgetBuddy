@@ -1,11 +1,10 @@
 from .display_reports import show_expense_graph, show_income_graph
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from logic.data_management import (
-    add_record,
     add_expense,
     add_income,
     search_expense,
-    search_income,
+    search_incomes,
     update_budget,
     delete_expense_by_index,
     delete_income_by_index,
@@ -73,6 +72,14 @@ def delete_expense(idx):
     return redirect(url_for("expenses"))
 
 
+@app.route('/search_expense', methods=['GET'])
+def search_in_expenses():
+    search_wey = request.args.get('search_wey')
+    string_search = request.args.get('string_search')
+    filter_expenses = search_expense(search_wey, string_search)
+    return render_template('expenses_search.html', filter_expenses=enumerate(filter_expenses))
+
+
 @app.route("/income")
 def income():
     sorted_incomes = enumerate(sorted(get_incomes(), key=lambda item: item["date"]))
@@ -95,6 +102,15 @@ def add_new_income():
 def delete_income(idx):
     delete_income_by_index(idx)
     return redirect(url_for("income"))
+
+
+@app.route('/search_income', methods=['GET'])
+def search_in_incomes():
+    search_wey = request.args.get('search_wey')
+    string_search = request.args.get('string_search')
+    filter_incomes = search_incomes(search_wey, string_search)
+    return render_template('incomes_search.html', filter_incomes=enumerate(filter_incomes))
+
 
 
 @app.route("/budget", methods=["GET", "POST"])

@@ -22,11 +22,25 @@
     </form>
 </details>
 <div>
+    <br>
+    <details>
+        <summary>Search incomes</summary>
+    <form action="{{ url_for('search_in_incomes') }}" method="GET">
+        <select id="search_wey" name="search_wey" required>
+            <option selected disabled>Select a wey to search</option>
+            <option value="date">Date</option>
+            <option value="source">Source</option>
+            <option value="description">Description</option>
+        </select>
+        <input type="text" id="string_search" name="string_search" placeholder="Enter search term" required>
+        <button type="submit" class="button">Search</button>
+    </form>
+    </details>
     <table border="1">
         <thead>
             <tr>
                 <th>Date</th>
-                <th>source</th>
+                <th>Source</th>
                 <th>Amount</th>
                 <th>Description</th>
                 <th></th>
@@ -41,7 +55,7 @@
                 <td>{{ one_income["description"] }}</td>
                 <td>
                     <form action="{{ url_for('delete_income', idx=idx) }}" method="POST">
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="button">Delete</button>
                     </form>
                 </td>
             </tr>

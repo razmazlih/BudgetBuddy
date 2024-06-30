@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Found Expenses</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for idx, one_expense in filter_expenses %}
+        <tr>
+            <td>{{ one_expense["date"] }}</td>
+            <td>{{ one_expense["category"] }}</td>
+            <td>{{ one_expense["amount"] }}$</td>
+            <td>{{ one_expense["description"] }}</td>
+            <td>
+                <form action="{{ url_for('delete_expense', idx=idx) }}" method="POST">
+                    <button type="submit" class="button">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

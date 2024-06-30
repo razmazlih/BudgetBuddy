@@ -101,75 +101,15 @@ def add_income(date: str, source: str, amount, description: str):
 
 
 def search_expense(wey_search: str, string_search: str) -> list:
-    """
-    מחפש הוצאות לפי מפתח וערך חיפוש.
-
-    פרמטרים:
-        wey_search (str): המפתח לחיפוש בהוצאות (כגון "category", "date").
-        string_search (str): הערך לחיפוש במפתח הנתון.
-
-    מחזיר:
-        list: רשימת הוצאות שמכילות את ערך החיפוש במפתח הנתון, או רשימה ריקה אם לא נמצאו הוצאות.
-
-    תיאור:
-        הפונקציה טוענת את כל ההוצאות מקובץ ההוצאות JSON שצויין בנתיב `EXPENSES_FILE_LOCATION`.
-        היא בודקת אם המפתח לחיפוש קיים בהוצאות, ולאחר מכן מחפשת את הערך הנתון במפתח הנתון בכל ההוצאות.
-        אם נמצאו הוצאות מתאימות, הפונקציה מחזירה רשימה של ההוצאות הללו. אם לא נמצאו הוצאות מתאימות או
-        אם המפתח לחיפוש לא קיים, הפונקציה מחזירה רשימה ריקה ומדפיסה הודעה מתאימה.
-    """
     my_expenses = _open_read_file(EXPENSES_FILE_LOCATION)
-
-    for expense in my_expenses:
-        if wey_search not in expense:
-            print("expense not found!")
-            return []
-        break
-
-    founds = [
-        expense for expense in my_expenses if string_search in str(expense[wey_search])
-    ]
-
-    if founds:
-        return founds
-    else:
-        print("expense not found!")
-        return []
+    filter_expenses = [expense for expense in my_expenses if string_search in expense[wey_search]]
+    return filter_expenses
 
 
-def search_income(wey_search: str, string_search: str) -> list:
-    """
-    מחפש הכנסות לפי מפתח וערך חיפוש.
-
-    פרמטרים:
-        wey_search (str): המפתח לחיפוש בהכנסות (כגון "source", "date").
-        string_search (str): הערך לחיפוש במפתח הנתון.
-
-    מחזיר:
-        list: רשימת הכנסות שמכילות את ערך החיפוש במפתח הנתון, או רשימה ריקה אם לא נמצאו הכנסות.
-
-    תיאור:
-        הפונקציה טוענת את כל ההכנסות מקובץ ההכנסות JSON שצויין בנתיב `INCOME_FILE_LOCATION`.
-        היא בודקת אם המפתח לחיפוש קיים בהכנסות, ולאחר מכן מחפשת את הערך הנתון במפתח הנתון בכל ההכנסות.
-        אם נמצאו הכנסות מתאימות, הפונקציה מחזירה רשימה של ההכנסות הללו. אם לא נמצאו הכנסות מתאימות או
-        אם המפתח לחיפוש לא קיים, הפונקציה מחזירה רשימה ריקה ומדפיסה הודעה מתאימה.
-    """
-    my_incomes = _open_read_file(EXPENSES_FILE_LOCATION)
-
-    for income in my_incomes:
-        if wey_search not in income:
-            print("expense not found!")
-            return []
-        break
-
-    founds = [
-        income for income in my_incomes if string_search in str(income[wey_search])
-    ]
-
-    if founds:
-        return founds
-    else:
-        print("expense not found!")
-        return []
+def search_incomes(wey_search: str, string_search: str) -> list:
+    my_incomes = _open_read_file(INCOME_FILE_LOCATION)
+    filter_incomes = [income for income in my_incomes if string_search in income[wey_search]]
+    return filter_incomes
 
 
 def delete_expense_by_index(idx: int):
