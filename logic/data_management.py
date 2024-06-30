@@ -1,3 +1,4 @@
+from datetime import datetime
 from . import (
     BUDGET_FILE_LOCATION,
     INCOME_FILE_LOCATION,
@@ -5,6 +6,7 @@ from . import (
     _open_read_file,
     _open_write_file,
 )
+
 
 def add_record(file_path: str, record: dict):
     """
@@ -350,6 +352,7 @@ def get_budget() -> float:
 
     return budget["monthly_budget"]
 
+
 def get_budget_categories() -> dict:
     """
     פונקציה להחזרת קטגוריות התקציב.
@@ -358,6 +361,7 @@ def get_budget_categories() -> dict:
         dict: קטגוריות התקציב מתוך קובץ התקציב.
     """
     return _open_read_file(BUDGET_FILE_LOCATION)["categories"]
+
 
 def get_expenses() -> list:
     """
@@ -368,6 +372,7 @@ def get_expenses() -> list:
     """
     return _open_read_file(EXPENSES_FILE_LOCATION)
 
+
 def get_incomes() -> list:
     """
     פונקציה להחזרת כל ההכנסות.
@@ -376,6 +381,7 @@ def get_incomes() -> list:
         list: רשימת ההכנסות מתוך קובץ ההכנסות.
     """
     return _open_read_file(INCOME_FILE_LOCATION)
+
 
 def get_expense_categories() -> set:
     """
@@ -391,6 +397,7 @@ def get_expense_categories() -> set:
     my_budget = _open_read_file(BUDGET_FILE_LOCATION)
     return my_budget["categories"]
 
+
 def get_income_categories() -> set:
     """
     פונקציה להחזרת קטגוריות ההכנסות.
@@ -401,3 +408,47 @@ def get_income_categories() -> set:
     all_incomes = _open_read_file(INCOME_FILE_LOCATION)
     categories_set = {income["category"] for income in all_incomes}
     return categories_set
+
+
+def get_total_expenses_now_month() -> float:
+    """
+    פונקציה זו מחזירה את סך כל ההוצאות בחודש הנוכחי.
+
+    Returns:
+        float: סך כל ההוצאות בחודש הנוכחי.
+    """
+    all_expenses = get_expenses()
+
+    now_month = datetime.now().month
+    now_year = datetime.now().year
+
+    list_on_now_month = [
+        expense["amount"]
+        for expense in all_expenses
+        if int(expense["date"][5:7]) == now_month
+        and int(expense["date"][:4]) == now_year
+    ]
+
+    return sum(list_on_now_month)
+
+
+def get_total_income_now_month() -> float:
+    """
+    פונקציה זו מחזירה את סך כל ההכנסות בחודש הנוכחי.
+
+    Returns:
+        float: סך כל ההכנסות בחודש הנוכחי.
+    """
+    all_income = get_incomes()
+
+    now_month = datetime.now().month
+    now_year = datetime.now().year
+
+    list_on_now_month = [
+        income["amount"]
+        for income in all_income
+        if int(income["date"][5:7]) == now_month
+        and int(income["date"][:4]) == now_year
+    ]
+
+    return sum(list_on_now_month)
