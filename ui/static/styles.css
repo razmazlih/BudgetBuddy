@@ -151,6 +151,10 @@ form input[type="submit"]:hover {
         font-size: 12px;
     }
 
+    .top-tablet {
+        width: 50px;
+    }
+
     .small {
         margin: 0;
         padding: 5px 10px;
